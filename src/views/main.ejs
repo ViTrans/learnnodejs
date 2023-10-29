@@ -21,7 +21,12 @@
       <td><%= element.role %></td>
       <td>
         <a href="/edit-user/<%= element.id %>" class="btn btn-primary">Edit</a>
-        <a href="/delete/<%= element.id %>" class="btn btn-danger">Delete</a>
+      </td>
+      <td>
+        <form action="/delete" method="POST">
+          <input type="hidden" name="id" value="<%= element.id  %>" />
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
       </td>
       <% }) %>
     </tr>

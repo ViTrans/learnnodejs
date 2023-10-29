@@ -58,10 +58,21 @@ const updateUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.body;
+  try {
+    await Users.findByIdAndDelete(id);
+    return res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getHomePage,
   getCreateUser,
   createUser,
   getEditUser,
   updateUser,
+  deleteUser,
 };
