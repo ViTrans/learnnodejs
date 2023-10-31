@@ -1,8 +1,10 @@
 const Products = require("../models/product");
+const Category = require("../models/category");
 
-const getAddProductPage = (req, res) => {
+const getAddProductPage = async (req, res) => {
+  const categories = await Category.find({});
   return res.render("home.ejs", {
-    data: { page: "addProduct", title: "Trang them san pham" },
+    data: { page: "addProduct", title: "Trang them san pham", categories },
   });
 };
 
@@ -10,6 +12,17 @@ const getProducts = async (req, res) => {
   const products = await Products.find({});
   return res.render("home.ejs", {
     data: { page: "product", title: "Trang danh sach san pham", products },
+  });
+};
+const getProductByCategory = async (req, res) => {
+  const { id } = req.params;
+  const products = await Products.find({ category: id });
+  res.render("home.ejs", {
+    data: {
+      page: "productCategory",
+      title: "Trang danh sach san pham theo danh muc",
+      products,
+    },
   });
 };
 
@@ -26,6 +39,7 @@ const getProductAdmin = async (req, res) => {
 
 const getProductDetail = async (req, res) => {
   const { id } = req.params;
+
   const product = await Products.findById(id);
   return res.render("home.ejs", {
     data: { page: "productDetail", title: "Trang chi tiet san pham", product },
@@ -33,7 +47,7 @@ const getProductDetail = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  const { title, description, price, feature } = req.body;
+  const { title, description, price, feature, category } = req.body;
   const image = req.file.path;
   try {
     await Products.create({
@@ -42,6 +56,7 @@ const addProduct = async (req, res) => {
       image,
       price,
       feature,
+      category,
     });
     return res.redirect("/products");
   } catch (error) {
@@ -83,4 +98,5 @@ module.exports = {
   getProductAdmin,
   getEditProduct,
   updateProduct,
+  getProductByCategory,
 };

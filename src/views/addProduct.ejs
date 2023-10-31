@@ -38,5 +38,16 @@
       name="description"
     ></textarea>
   </div>
+  <div class="mb-3">
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      name="category"
+    >
+      <% data.categories.forEach(element => { %>
+      <option value="<%= element.id %>"><%= element.name %></option>
+      <% }) %>
+    </select>
+  </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
