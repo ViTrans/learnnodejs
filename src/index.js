@@ -7,6 +7,8 @@ dotenv.config();
 const port = process.env.PORT || 3001;
 const configViewEngine = require("./configs/viewEngine");
 const initWebRoute = require("./router/initWebRoute");
+const userWebRoute = require("./router/userWebRoute");
+const productWebRoute = require("./router/productWebRoute");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -50,6 +52,8 @@ app.use(getCategory);
 
 configViewEngine(app);
 initWebRoute(app);
+userWebRoute(app);
+productWebRoute(app);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

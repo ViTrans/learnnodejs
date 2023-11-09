@@ -6,6 +6,7 @@ const categoryController = require("../controllers/categoryController");
 const loginController = require("../controllers/loginController");
 const registerController = require("../controllers/registerController");
 const forgotPassword = require("../controllers/forgotPassword");
+const ressetPassword = require("../controllers/resetPassword");
 const uploadFile = require("../middleware/clouldinary");
 
 const initWebRoute = (app) => {
@@ -41,6 +42,9 @@ const initWebRoute = (app) => {
 
   router.get("/forgot-password", forgotPassword.showForgotPasswordPage);
   router.post("/forgot-password", forgotPassword.forgotPassword);
+
+  router.get("/reset-password", ressetPassword.showPage);
+  router.post("/reset-password", ressetPassword.verifyPasswordToken);
   return app.use("/", router);
 };
 
